@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: white;
+      color: #333;
+    }
+    
+    /* Added header navigation styles */
+    header {
+      background-color: #b3003b;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* Added brand container and logo styles */
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: left;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      background-color: #ff1a75;
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+    }
+    
+    /* Updated main content padding */
+    .main-content {
+      margin: 20px;
+    }
+    
+    .order {
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #e91e63;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #e91e63;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Added header navigation -->
+  <header>
+    <!-- Added brand container with logo before Dr.Jones -->
+    <div class="brand-container">
+      <img src="img/logo.jpg" alt="Dr.Jones Logo" class="logo-img" />
+      <div class="logo">Rose & Vanilla(Cake & Gift Shop)</div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="billing.html">Billing</a>
+      <a href="contact.html">Contact</a>
+      
+    </nav>
+  </header>
+
+  <!-- Wrapped content in main-content div -->
+  <div class="main-content">
+    <h1>Order History</h1>
+
+    <div id="orders-container">
+      <!-- Orders will show here -->
+    </div>
+  </div>
+
+  <script>
+    const ordersContainer = document.getElementById('orders-container');
+    const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+
+    if (orderHistory.length === 0) {
+      ordersContainer.innerHTML = '<p>No past orders found.</p>';
+    } else {
+      orderHistory.forEach((order, idx) => {
+        const div = document.createElement('div');
+        div.className = 'order';
+
+        let itemsHTML = '<table><thead><tr><th>Item</th><th>Price (MMK)</th><th>Quantity</th><th>Total (MMK)</th></tr></thead><tbody>';
+        order.items.forEach(item => {
+          const total = (item.price * item.quantity).toFixed(2);
+          itemsHTML += `<tr>
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td>${item.quantity}</td>
+            <td>${total}</td>
+          </tr>`;
+        });
+        itemsHTML += '</tbody></table>';
+
+        div.innerHTML = `
+          <h2>Order #${idx + 1} - ${order.date}</h2>
+          ${itemsHTML}
+          <p><strong>Total Paid:</strong> MMK ${order.totalAmount}</p>
+          <p><strong>Payment Method:</strong> ${order.paymentMethod.toUpperCase()}</p>
+        `;
+
+        ordersContainer.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>

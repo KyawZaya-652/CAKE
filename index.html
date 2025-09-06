@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dr.Jones Bakery Menu</title>
+  <style>
+    body {
+      background: #fff0f5;
+      font-family: Arial, sans-serif;
+      color: #b3003b;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #b3003b;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    h1 {
+      margin: 0;
+      text-align: left;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .nav-links a:hover {
+      background-color: #ff1a75;
+    }
+    .menu-container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .category {
+      margin-bottom: 30px;
+    }
+    .category h2 {
+      border-bottom: 2px solid #b3003b;
+      padding-bottom: 5px;
+    }
+    .items-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .item-card {
+      border: 1px solid #b3003b;
+      border-radius: 8px;
+      width: 180px;
+      background: white;
+      text-align: center;
+      padding: 10px;
+    }
+    .item-card img {
+      width: 100%;
+      height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .item-name {
+      font-weight: bold;
+      margin: 10px 0 5px;
+    }
+    .item-price {
+      color: #ff1a75;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #b3003b;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff1a75;
+    }
+    /* Added success notification styles */
+    .success-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+    .success-notification.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .success-notification .checkmark {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Added success notification element -->
+  <div id="successNotification" class="success-notification">
+    <span class="checkmark">✓</span>
+    <span id="notificationText">Item added to cart!</span>
+  </div>
+
+  <header>
+    <!-- Added logo before Dr.Jones text -->
+    <div class="brand-container">
+      <img src="img/logo.jpg" alt="Dr.Jones Logo" class="logo" />
+      <h1>Rose & Vanilla(Cake & Gift Shop)</h1>
+    </div>
+    <div class="nav-links">
+      <a href="billing.html">Billing</a>
+      <a href="order-history.html">Order History</a>
+      <a href="contact.html">Contact</a>
+     
+    </div>
+  </header>
+
+    <div class="menu-container">
+    <div class="category" id="cakes">
+      <h2>Cakes</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOyIOn7P7ux1Nzy0vLgEqjfuKQPp7MV-rC_w&s" alt="Chocolate Cake" />
+          <div class="item-name">Chocolate Cake</div>
+          <div class="item-price">50000MMK</div>
+          <button onclick="addToCart('Chocolate Cake', 50000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGsnVPFXIVBoRB5UHIVEpCXSTqrE2uTJjSxQ&s" alt="Vanilla Cake" />
+          <div class="item-name">Vanilla Cake</div>
+          <div class="item-price">45000MMK</div>
+          <button onclick="addToCart('Vanilla Cake', 45000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPYeFyIFjwpSdWNMU3-VBV8ax7rgJfA8ob1g&s" alt="Red Velvet Cake" />
+          <div class="item-name">Red Velvet Cake</div>
+          <div class="item-price">60000MMK</div>
+          <button onclick="addToCart('Red Velvet Cake', 60000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs5LoHJeYLEVCnZCpkVFDSkCHGTSMqsByigg&s" alt="Black Forest Cake" />
+          <div class="item-name">Black Forest Cake</div>
+          <div class="item-price">55000MMK</div>
+          <button onclick="addToCart('Black Forest Cake', 55000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4ci9gCBxYijuF9y1QNnLlu6uzAkKdK_b0Ig&s" alt="Tiramisu Cake" />
+          <div class="item-name">Tiramisu Cake</div>
+          <div class="item-price">48000MMK</div>
+          <button onclick="addToCart('Tiramisu Cake', 48000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeXTEXRhoc-frpIyaOT6MvP01lE3DcGqNWBQ&s" alt="Butterscotch Cake" />
+          <div class="item-name">Butterscotch Cake</div>
+          <div class="item-price">52000MMK</div>
+          <button onclick="addToCart('Butterscotch Cake', 52000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeGSpWKTsGj_cC3Ods1Q0Yla2leheaOa7BiA&s" alt="Strawberry Cake" />
+          <div class="item-name">Strawberry Cake</div>
+          <div class="item-price">57000MMK</div>
+          <button onclick="addToCart('Strawberry Cake', 57000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwf302mw4O8_SMrsOe06-f4--opOtifccrfg&s" alt="Marble Cake" />
+          <div class="item-name">Marble Cake</div>
+          <div class="item-price">53000MMK</div>
+          <button onclick="addToCart('Marble Cake', 53000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeV29fe6l9VtuWw0NpL3uWakd_CCYafDHROw&s" alt="Pistachio Cake" />
+          <div class="item-name">Pistachio Cake</div>
+          <div class="item-price">60000MMK</div>
+          <button onclick="addToCart('Pistachio Cake', 60000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrrOjNYoZn5vlKITRIUvYXvXNo23DTIZLnew&s" alt="Cheesecake" />
+          <div class="item-name">Cheesecake</div>
+          <div class="item-price">70000MMK</div>
+          <button onclick="addToCart('Cheesecake', 70000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAAN11xs2G2JEsA521WqBw0RcO96AI2b5u-A&s" alt="Rainbow Cake" />
+          <div class="item-name">Rainbow Cake</div>
+          <div class="item-price">48000MMK</div>
+          <button onclick="addToCart('Rainbow Cake', 48000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK4zRbE1jOxjlMJtxYZ0Tl6EWD29RkbBpCMQ&s" alt="oreo Cake" />
+          <div class="item-name">oreo Cake</div>
+          <div class="item-price">52000MMK</div>
+          <button onclick="addToCart('oreo Cake', 52000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ49QV1uhrKvrXK_djS8WoLMgT2vzM6KMb71g&s" alt="Blueberry Cake" />
+          <div class="item-name">Blueberry Cake</div>
+          <div class="item-price">60000MMK</div>
+          <button onclick="addToCart('Blueberry Cake', 60000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTLapa25ZHh-G8NcffpJVa6Q2FRWVJ86oWfg&s" alt="Mango Cake" />
+          <div class="item-name">Mango Cake</div>
+          <div class="item-price">55000MMK</div>
+          <button onclick="addToCart('Mango Cake', 55000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSrfH140N4mToYbKjSyb5yVFGBWL97pegR2Q&s" alt="fruit cake"/>
+          <div class="item-name">fruit Cake</div>
+          <div class="item-price">45000MMK</div>
+          <button onclick="addToCart('fruit cake', 45000)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="category" id="cookies">
+      <h2>Cookies</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTji8TuvSyMYfsRDAekuYBmusFPTKcTT07wg&s" alt="Chocolate Chip Cookie" />
+          <div class="item-name">Chocolate Chip Cookie</div>
+          <div class="item-price">800MMK</div>
+          <button onclick="addToCart('Chocolate Chip Cookie', 800)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST8qVMzUAaaza3GdKx6dCYQ_W32LUupj7DkQ&s" alt="Oatmeal Cookie" />
+          <div class="item-name">Oatmeal Cookie</div>
+          <div class="item-price">700MMK</div>
+          <button onclick="addToCart('Oatmeal Cookie', 700)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOkPRllyaOfbijqouRm-K-Br53jP7DkUy3Kw&s" alt="Peanut Butter Cookie" />
+          <div class="item-name">Peanut Butter Cookie</div>
+          <div class="item-price">850MMK</div>
+          <button onclick="addToCart('Peanut Butter Cookie', 850)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR0_OLiKOcTRuwminOtSWCsr2cxUihh2hKVQ&s" alt="Macadamia Nut Cookie" />
+          <div class="item-name">Macadamia Nut Cookie</div>
+          <div class="item-price">900MMK</div>
+          <button onclick="addToCart('Macadamia Nut Cookie', 900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8vRwHvPdMRelf6vK8kfnKRYTFw5tI3BUpkA&s" alt="Double Chocolate Cookie" />
+          <div class="item-name">Double Chocolate Cookie</div>
+          <div class="item-price">950MMK</div>
+          <button onclick="addToCart('Double Chocolate Cookie', 950)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvhxQLxlRu0SYF831tikOCUI4fP4IVpF6t_Q&s" alt="Snickerdoodle Cookie" />
+          <div class="item-name">Snickerdoodle Cookie</div>
+          <div class="item-price">750MMK</div>
+          <button onclick="addToCart('Snickerdoodle Cookie', 750)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwPOH_0JWLFgV-FJsDWD7PHFvONw95n5c6oQ&s" alt="White Chocolate Cookie" />
+          <div class="item-name">White Chocolate Cookie</div>
+          <div class="item-price">900MMK</div>
+          <button onclick="addToCart('White Chocolate Cookie', 900)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvhxQLxlRu0SYF831tikOCUI4fP4IVpF6t_Q&s" alt="Butter Cookie" />
+          <div class="item-name">Butter Cookie</div>
+          <div class="item-price">800MMK</div>
+          <button onclick="addToCart('Butter Cookie', 800)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="category" id="drinks">
+      <h2>Drinks</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRODZl3M-PyfSAAOV3KdbANvuF5a9-j197S6w&s" alt="Coffee" />
+          <div class="item-name">Coffee</div>
+          <div class="item-price">5000MMK</div>
+          <button onclick="addToCart('Coffee', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8FbhGheWSuI6akCZEql2GZ_rzUJ-SXxgzxA&s" alt="Matcha" />
+          <div class="item-name">Matcha</div>
+          <div class="item-price">7000MMK</div>
+          <button onclick="addToCart('Matcha', 7000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrjUXQ4jxF401uhNhOY3KjoBFN8q0jUO14Hg&s" alt="Strawberry Shake" />
+          <div class="item-name">Strawberry Shake</div>
+          <div class="item-price">9000MMK</div>
+          <button onclick="addToCart('Strawberry Shake', 9000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0RmYFjgSMjBwsPScokmHKvVMK-dlOu8KVdg&s" alt="Cold Coffee" />
+          <div class="item-name">Cold Coffee</div>
+          <div class="item-price">5000MMK</div>
+          <button onclick="addToCart('Cold Coffee', 5000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTalJDCtfVm9aiRFJ8zowqJydihNZydy4QvLQ&s" alt="Orange Juice" />
+          <div class="item-name">Orange Juice</div>
+          <div class="item-price">7000MMK</div>
+          <button onclick="addToCart('Orange Juice', 7000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4hhmAr23gnezRvX-53Gkw3UFgeFFLIyT_mw&s" alt="Iced Tea" />
+          <div class="item-name">Iced Tea</div>
+          <div class="item-price">5500MMK</div>
+          <button onclick="addToCart('Iced Tea', 5500)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7H-LQUOQa_UkpLxlCQyuwixXdBz9sWUSF4w&s" alt="Milkshake" />
+          <div class="item-name">Milkshake</div>
+          <div class="item-price">9000MMK</div>
+          <button onclick="addToCart('Milkshake', 9000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRdlsOIQyE3Dnpv0N7S3uNmIV8CZ5xEJfUg&s" alt="Oreo shake" />
+          <div class="item-name">Oreo shake</div>
+          <div class="item-price">9000MMK</div>
+          <button onclick="addToCart('Oreo shake', 9000)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="category" id="drinks">
+      <h2>DOlls</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="img/d1.jpg" alt="bear" />
+          <div class="item-name">White bear</div>
+          <div class="item-price">38000MMK</div>
+          <button onclick="addToCart('White bear', 38000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/d2.jpg" alt="Brown Cat" />
+          <div class="item-name">Brown Cat</div>
+          <div class="item-price">39000MMK</div>
+          <button onclick="addToCart('Brown Cat', 39000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/d3.jpg" alt="Pink Kitty" />
+          <div class="item-name">Pink Kitty</div>
+          <div class="item-price">29000MMK</div>
+          <button onclick="addToCart('Pink Kitty', 29000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/d5.jpg" alt="Bear" />
+          <div class="item-name">Bear</div>
+          <div class="item-price">28000MMK</div>
+          <button onclick="addToCart('Bear', 28000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/d6.jpg" alt="Chicco" />
+          <div class="item-name">Chicco</div>
+          <div class="item-price">70000MMK</div>
+          <button onclick="addToCart('Chicco', 70000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/d7.jpg" alt="yellow hamster" />
+          <div class="item-name">yellow hamster</div>
+          <div class="item-price">55000MMK</div>
+          <button onclick="addToCart('yellow hamster', 55000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/d8.jpg" alt="Bacon" />
+          <div class="item-name">Bacon</div>
+          <div class="item-price">40000MMK</div>
+          <button onclick="addToCart('Bacon', 40000)">Add to Cart</button>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="category" id="drinks">
+      <h2>Flowers</h2>
+      <div class="items-grid">
+        <div class="item-card">
+          <img src="img/f1.jpg" alt="yellow flowers" />
+          <div class="item-name">yellow flowers</div>
+          <div class="item-price">18000MMK</div>
+          <button onclick="addToCart('yellow flowers', 18000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/f2.jpg" alt="Bouquet" />
+          <div class="item-name">Bouquet</div>
+          <div class="item-price">19000MMK</div>
+          <button onclick="addToCart('Bouquet', 19000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/f3.jpg" alt="Freesias" />
+          <div class="item-name">Freesias</div>
+          <div class="item-price">23000MMK</div>
+          <button onclick="addToCart('Freesias', 23000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/f4.jpg" alt="Tulips" />
+          <div class="item-name">Tulips</div>
+          <div class="item-price">28000MMK</div>
+          <button onclick="addToCart('Tulips', 28000)">Add to Cart</button>
+        </div>
+        <div class="item-card">
+          <img src="img/f5.jpg" alt=" Ranunculus" />
+          <div class="item-name"> Ranunculus</div>
+          <div class="item-price">8000MMK</div>
+          <button onclick="addToCart(' Ranunculus', 8000)">Add to Cart</button>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cart stored in localStorage as array of items {name, price, qty}
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItemIndex = cart.findIndex(item => item.name === name);
+      if (existingItemIndex >= 0) {
+        cart[existingItemIndex].qty += 1;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Show success notification
+      showSuccessNotification(name + ' added to cart!');
+    }
+
+    function showSuccessNotification(message) {
+      const notification = document.getElementById('successNotification');
+      const notificationText = document.getElementById('notificationText');
+      
+      notificationText.textContent = message;
+      notification.classList.add('show');
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
